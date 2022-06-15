@@ -1,4 +1,4 @@
-# IB-Math-Placement
+# IB-Math-Placement Classifier
 
 ## Project Goals
 
