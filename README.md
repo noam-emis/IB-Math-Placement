@@ -10,8 +10,8 @@
 ## Files
 1. <b>'data' folder </b>
 - Csv files of IB and math placement results from 2019-2021. 
-- All personal information has been masked. 
-- Only Math test scores are visible on the IB results, again, not associated with student names.
+- All personal identifiers have been masked. 
+- Only Math test scores are visible in the IB results, again, not associated with student names.
 2. <b>'project' folder </b>
 - *math_placement_project.ipynb*: Notebook for data cleaning, EDA, model selection, model analysis.
 - *data_cleaning.py*: File of data cleaning functions.
