@@ -7,13 +7,6 @@
 3. Feature importance, so teachers can determine what are the most relevant pre-requisite skills needed for their courses.
 4. Automate letters to students if they chose a class that does not suit their ability level.
 
-## Data
-1. Math placement test results for each student. Columns labeled as "skill_questionnum_level". (For X values of model)
-- 'skill' is the name of the skill assessed (e.g. 'num_ops', 'quad', 'linear', 'alg_exp')
-- 'question_num' is the question number of that skill.
-- 'level' is the difficulty level of the skill.
-3. IB exam results for students at the end of their two years. This is to help determine the 'true class' of each student. (For Y values of model)
-
 ## Files
 1. <b>'data' folder </b>
 - Csv files of IB and math placement results from 2019-2021.
@@ -29,3 +22,10 @@
 - *math_prediction_model_11_06.pkl*: Pickle file containing the trained model.
 - *X_train_10_6.pkl*: Pickle file containing the training data used for the model.
 - *y_train_10_6.pkl*: Pickle file containing the training data used for the model.
+
+## Data
+1. Math placement test results for each student. Columns labeled as "skill_questionnum_level". (For X values of model)
+- 'skill' is the name of the skill assessed (e.g. 'num_ops', 'quad', 'linear', 'alg_exp')
+- 'question_num' is the question number of that skill.
+- 'level' is the difficulty level of the skill.
+2. IB exam results for students at the end of their two years. This is to help determine the 'true class' of each student. (For Y values of model)
