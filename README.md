@@ -3,7 +3,7 @@
 ## Project Goals
 
 1. Create a classifier that receives student placement test data (pre-requisite skills), and outputs a prediction for the appropriate IB math course.
-2. Develop a confidence interval predictor that gives ranges of predicted probabilities for the predicted class of each sample. The model should output the maximum probability class that is associated with the lower boundary of this confidence interval. This will provide flexibility for student class choices and mitigate model errors caused by the limited amount of data.
+2. Develop a confidence interval predictor that gives ranges of predicted probabilities for the predicted class of each sample. The model should output the maximum probability class that is associated with the lower boundary of this confidence interval. This will provide flexibility for student class placement and mitigate model errors caused by the limited amount of data.
 3. Feature importance, so teachers can determine what are the most relevant pre-requisite skills needed for their courses.
 4. Automate letters to students if they chose a class that does not suit their ability level.
 
