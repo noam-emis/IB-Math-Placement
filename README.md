@@ -7,6 +7,11 @@
 3. Feature importance, so teachers can determine what are the most relevant pre-requisite skills needed for their courses.
 4. Automate letters to students if they chose a class that does not suit their ability level.
 
+## Results
+
+1. Model performance outperforms teacher predictions by 10%.
+2. Automated predictions and generated emails save the math department hours of work and uncertainty with math placement.
+
 ## Files
 1. <b>'data' folder </b>
 - Csv files of IB and math placement results from 2019-2021. 
