@@ -9,7 +9,7 @@
 
 ## Results
 
-1. Model performance outperforms teacher predictions by 10%.
+1. Model performance outperforms teachers' collective predictions by 10%.
 2. Automated predictions and generated emails save the math department hours of work and uncertainty with math placement.
 
 ## Files
