@@ -29,6 +29,10 @@
 - *math_prediction_model_11_06.pkl*: Pickle file containing the trained model.
 - *X_train_10_6.pkl*: Pickle file containing the training data used for the model.
 - *y_train_10_6.pkl*: Pickle file containing the training data used for the model.
+- *ci_widget_sample.png*: Example image of the output of the confidence interval widget.
+- *email_sample_1.png*: Example image of the output of the email widget.
+- *email_sample_2.png*: Example image of the output of the email widget.
+- *placement_scores_no_names_2021.csv*: File for the purpose of running the notebook.
 
 ## Data
 1. Math placement test results for each student. Columns labeled as "skill_questionnum_level". (For X values of model)
