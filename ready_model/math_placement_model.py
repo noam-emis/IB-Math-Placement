@@ -19,7 +19,7 @@ from sklearn.base import BaseEstimator
 from sklearn.base import TransformerMixin
 from sklearn.base import clone
 
-class prepare_clean_df():
+class prepare_clean_df(BaseEstimator, TransformerMixin):
     '''
     A class that prepares both training and testing data for the model.
     
@@ -140,7 +140,7 @@ class prepare_clean_df():
 
         returns: A 'clean' dataframe that calculates weighted averages for each skill and calculates a total weighted average for the placement test. It drops columns such as 'Student' and 'Currently in. It also calculates an average score by level.'    
         '''
-        question_cols = year_df.drop(['Currently in', 'Recommended Course'], axis = 1).columns
+        question_cols = year_df.drop(['Currently in'], axis = 1).columns
         df_clean = pd.DataFrame(year_df.apply(self.create_total_perc, axis = 1, args = (question_cols,)),
                                 index = year_df.index, columns = ['total_weighted_perc'])
         for skill in self.skills:
@@ -222,7 +222,7 @@ class prepare_clean_df():
                 return 'ERROR: Cannot update train data without a file path for labels.'
             else:
                 #Clean the y_data.
-                y_clean = self.create_clean_ib_label(y_file_path)
+                y_clean = pd.DataFrame(self.create_clean_ib_label(y_file_path))
                 total_new_train = df_clean.merge(y_clean, 
                                            left_index = True,
                                            right_index = True,
@@ -239,7 +239,50 @@ class prepare_clean_df():
         else:
             return 'ERROR: train_test must be specified as either "train" or "test".'
 
-        
+def cross_validate_model(model, X, y, scorer = 'f1_weighted', k = 5, plot = True, verbose = True):
+    '''
+    A function that plots the learning curve of the model and calculates the cross validation 
+    scores for the train and test set.
+    
+    model: An sklearn model that has been initialized with parameters.
+    
+    X: DataFrame of training features.
+    
+    y: Series of training labels.
+    
+    scorer: Sklearn (or handmade) scorer for the model. Default scorer is f1-weighted. Written as a string.
+    
+    k: the number of k-fold cross-validations to run. Default value is 5.
+    
+    plot: Default is True. If set to true, the function plots the learning curve.
+    
+    verbose: Default is True. If set to true, it outpluts the average train and validation scores.
+    
+    returns: The average train and validation scores.
+    '''
+    cross_val_dict = cross_validate(model, X, y, 
+                                    scoring = scorer, 
+                                    cv = k,
+                                    return_train_score = True)
+    if verbose:
+        print(f"Average train {scorer} {cross_val_dict['train_score'].mean()}")
+        print(f"Average validation {scorer} {cross_val_dict['test_score'].mean()}")
+    if plot == True:
+        train_sizes_abs, train_scores, test_scores = learning_curve(estimator = model, 
+                                                                    X = X, y = y, 
+                                                                    cv = k, 
+                                                                    scoring = scorer)
+        fig, axs = plt.subplots(figsize = (8, 6))
+        axs.plot(train_sizes_abs, np.mean(train_scores, axis = 1),  color = 'red')
+        axs.plot(train_sizes_abs, np.mean(test_scores, axis = 1), color = 'blue')
+        axs.set_xlabel('Training sample size')
+        axs.set_ylabel(scorer)
+        axs.legend(['Train', 'Validation'])
+        axs.grid(color = 'grey')
+        axs.tick_params(rotation = 0)
+        axs.set_facecolor('whitesmoke')
+        plt.show()
+    return cross_val_dict['train_score'].mean(), cross_val_dict['test_score'].mean()
         
 class math_placement_prediction_model(BaseEstimator, TransformerMixin):
     def __init__(self, estimator, num_bootstraps = 100):
@@ -410,6 +453,7 @@ class math_placement_prediction_model(BaseEstimator, TransformerMixin):
     def c_i_widget(self, y_test = None):
         '''
         A function that creates a widget that provides predictions, predicted probabilities, and lower confidence labels for each sample by index.
+        
         y_test: A Series of true labels for the data.
         
         returns: A widget with the output from "confidence_interval_info_by_idx".
